@@ -25,8 +25,9 @@ const unpredictableError = () => {
 const saveUser = (user, db) => {
   if (!validUser(user))
     throw unpredictableError()
-  let hasA = false;
-  user.permissions.forEach(permission => hasA = permission === 'A')
+  const hasA = user.permissions.some((permission) => {
+    return permission === 'A'
+  });
   const annualIncome = multiplyBy12(user.monthlyIncome);
   if (enoughIncome(annualIncome, hasA)) {
     try {
